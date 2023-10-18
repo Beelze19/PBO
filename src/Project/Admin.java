@@ -165,13 +165,16 @@ public class Admin extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        Siswa dua=new Siswa();
+        AdminSiswa dua=new AdminSiswa();
         dua.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        Adminpembayaran dua=new Adminpembayaran();
+        dua.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**

@@ -317,14 +317,14 @@ public class AdminHistory extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        History dua=new History();
+        AdminHistory dua=new AdminHistory();
         dua.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        Siswa dua=new Siswa();
+        AdminSiswa dua=new AdminSiswa();
         dua.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton4ActionPerformed

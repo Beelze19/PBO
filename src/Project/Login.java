@@ -150,14 +150,14 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Siswa dua=new Siswa();
+        Menu dua=new Menu();
         dua.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-         register dua=new register();
+        register dua=new register();
         dua.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed

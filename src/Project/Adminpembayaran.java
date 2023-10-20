@@ -420,14 +420,14 @@ public class Adminpembayaran extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        History dua=new History();
+        AdminHistory dua=new AdminHistory();
         dua.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        Siswa dua=new Siswa();
+        AdminSiswa dua=new AdminSiswa();
         dua.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton7ActionPerformed

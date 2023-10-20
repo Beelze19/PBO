@@ -438,6 +438,9 @@ public class AdminSiswa extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
+         Adminpembayaran dua=new Adminpembayaran();
+        dua.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     /**

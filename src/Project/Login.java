@@ -3,6 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Project;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,6 +20,13 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Char
      */
+    
+    public static Connection con() throws SQLException, ClassNotFoundException{
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        String mysqlUrl ="jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=Contoh;TrustServerCertificate=true;Encrypt=false;";
+        Connection con = DriverManager.getConnection(mysqlUrl,"charless","charles12345");
+        return con;
+    }
     public Login() {
         initComponents();
     }
@@ -47,7 +61,6 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setText("USERNAME:");
 
-        jTextField1.setText("Masukan Username");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -56,7 +69,6 @@ public class Login extends javax.swing.JFrame {
 
         jLabel3.setText("PASSWORD:");
 
-        jTextField2.setText("Masukan Password");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
@@ -80,7 +92,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Admin?");
+        jButton3.setText("Status: Connect to ");
         jButton3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jButton3.setBorderPainted(false);
         jButton3.setContentAreaFilled(false);
@@ -159,17 +171,46 @@ public class Login extends javax.swing.JFrame {
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Menu dua=new Menu();
-        dua.setVisible(true);
-        dispose();
+        Connection Con;
+        String Username = jTextField1.getText();
+        String Password = jTextField2.getText();
+        System.out.println(Username+" " + Password);
+        
+        try{
+            Con = con();
+            PreparedStatement pst= Con.prepareStatement("Select * From user_login");
+            ResultSet rst = pst.executeQuery();
+            while(rst.next()){ 
+                String UsernameDtbs = rst.getString("Username");
+                String PasswordDtbs = rst.getString("Password");
+                String RoleDtbs = rst.getString("Role");
+                
+                if(UsernameDtbs.equals(Username) && PasswordDtbs.equals(Password)){
+                    jButton3.setText("connect");
+                    break;
+                }else{
+                     jButton3.setText("connection Failed");
+                }
+                
+            }         
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    //Menu dua=new Menu();
+       // dua.setVisible(true);
+       // dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

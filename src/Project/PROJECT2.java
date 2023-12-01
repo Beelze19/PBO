@@ -18,8 +18,8 @@ import java.util.logging.Logger;
 public class PROJECT2 extends javax.swing.JFrame {
 public static Connection con() throws SQLException, ClassNotFoundException{
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String mysqlUrl ="jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=project2;TrustServerCertificate=true;Encrypt=false;";
-        Connection con = DriverManager.getConnection(mysqlUrl,"charless","charles12345");
+        String mysqlUrl ="jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=tbl_mahasiswa;TrustServerCertificate=true;Encrypt=false;";
+        Connection con = DriverManager.getConnection(mysqlUrl,"charles","charles12345");
         return con;
     }
     /**
@@ -336,8 +336,9 @@ public static Connection con() throws SQLException, ClassNotFoundException{
         
         try{
             con = con();
-            PreparedStatement pst= con.prepareStatement(String.format("INSERT INTO tbl_data (Nama,Jurusan,Email,password,Jeniskelamin,Tanggallahir,alamat) values('%s','%s','%s','%s','%s','%s','%s',)",Nama,Jurusan,Email,password,Jeniskelamin,Tanggallahir,alamat));
-            ResultSet rst = pst.executeQuery();
+            String str = String.format("INSERT INTO tbl_siswa (Nama,Jurusan,Email,password,Jeniskelamin,Tanggallahir,alamat) values('%s','%s','%s','%s','%s','%s','%s');",Nama,Jurusan,Email,password,Jeniskelamin,Tanggallahir,alamat);
+            PreparedStatement pst= con.prepareStatement(str);
+            pst.executeQuery();
             
                 
                     
@@ -371,8 +372,8 @@ public static Connection con() throws SQLException, ClassNotFoundException{
         
         try{
             con = con();
-            PreparedStatement pst= con.prepareStatement(String.format("UPDATE tbl_data SET Jurusan='%s',Email='%s' WHERE data1='%s'",data2,data3,data1c));
-            ResultSet rst = pst.executeQuery();
+            PreparedStatement pst= con.prepareStatement(String.format("UPDATE tbl_siswa SET Jurusan='%s',Email='%s',password='%s',Jeniskelamin='%s',Tanggallahir='%s',alamat='%s' WHERE Nama='%s'",Jurusan,Email,password,Jeniskelamin,Tanggallahir,alamat,data1c));
+            pst.executeQuery();
                            
         } catch (SQLException | ClassNotFoundException ex) {
         }
@@ -387,14 +388,18 @@ public static Connection con() throws SQLException, ClassNotFoundException{
         // TODO add your handling code here:
        
                  Connection con;
-        String data1 = jTextField1.getText();
-        String data2 = jTextField2.getText();
-        String data3 = jTextField3.getText();   
+        String Nama = jTextField1.getText();
+        String Jurusan = jTextField2.getText();
+        String Email = jTextField3.getText();   
+        String password = jTextField5.getText();
+        String Jeniskelamin = jTextField6.getText();
+        String Tanggallahir = jTextField7.getText();  
+         String alamat = jTextField8.getText();     
         String data1c = jTextField4.getText();   
         
         try{
             con = con();
-            PreparedStatement pst= con.prepareStatement(String.format("Delete From tbl_data where data1='%s' ", data1c));
+            PreparedStatement pst= con.prepareStatement(String.format("Delete From tbl_siswa where Nama='%s' ", data1c));
             ResultSet rst = pst.executeQuery();
                            
         } catch (SQLException | ClassNotFoundException ex) {
@@ -412,15 +417,19 @@ public static Connection con() throws SQLException, ClassNotFoundException{
         
         try{
             Con = con();
-            PreparedStatement pst= Con.prepareStatement (String.format("SELECT * FROM tbl_data WHERE data1='%s'",data1c));
+            PreparedStatement pst= Con.prepareStatement (String.format("SELECT * FROM tbl_siswa WHERE Nama='%s'",data1c));
             ResultSet rst = pst.executeQuery();
             while(rst.next()){ 
-                String data1Dtbs = rst.getString("data1");
-                String data2Dtbs = rst.getString("data2");
-                String data3Dtbs = rst.getString("data3");
+                String data1Dtbs = rst.getString("Nama");
+                String data2Dtbs = rst.getString("Jurusan");
+                String data3Dtbs = rst.getString("Email");
+                 String data4Dtbs = rst.getString("password");
+                String data5Dtbs = rst.getString("Jeniskelamin");
+                String data6Dtbs = rst.getString("Tanggallahir");
+                String data7Dtbs = rst.getString("alamat");
                 
                 if(data1Dtbs.equals(data1c) ){
-                    jLabel5.setText(data2Dtbs + "  " +data3Dtbs);
+                    jLabel5.setText(data2Dtbs + "  " +data3Dtbs + "  " + data4Dtbs + "  "+data5Dtbs + "  " +data6Dtbs + "  " +data7Dtbs );
                     break;
                 }else{
                     jLabel5.setText("connection Failed");

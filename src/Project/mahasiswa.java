@@ -18,12 +18,38 @@ import javax.swing.table.DefaultTableModel;
  * @author YPAB-LAB-RPL
  */
 public class mahasiswa extends javax.swing.JFrame {
-
+public static Connection con() throws SQLException, ClassNotFoundException{
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        String mysqlUrl ="jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=tbl_mahasiswa;TrustServerCertificate=true;Encrypt=false;";
+        Connection con = DriverManager.getConnection(mysqlUrl,"charles","charles12345");
+        return con;
+    }
     /**
      * Creates new form mahasiswa
      */
     public mahasiswa() {
         initComponents();
+        Connection con;
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        try{
+        con = con();
+        PreparedStatement pst = con.prepareStatement(String.format("SELECT * FROM tbl_siswa"));
+        ResultSet rst = pst.executeQuery();
+        while(rst.next()){
+            model.addRow(new Object[]{
+            rst.getString("Nama"),
+                rst.getString("Jurusan"),
+                rst.getString("Email"),
+                rst.getString("password"),
+                rst.getString("Jeniskelamin"),
+                rst.getString("Tanggallahir"),
+                rst.getString("alamat")              
+        });
+        }
+        
+        } catch (SQLException ex) {
+        } catch (ClassNotFoundException ex) {
+    }
     }
 
     /**
@@ -43,7 +69,6 @@ public class mahasiswa extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,10 +112,7 @@ public class mahasiswa extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Nama", "Jurusan", "Email", "password", "Jeniskelamin", "Tanggallahir", "alamat"
@@ -135,13 +157,6 @@ public class mahasiswa extends javax.swing.JFrame {
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        jButton3.setText("FINDING DATA");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,22 +164,15 @@ public class mahasiswa extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(180, 180, 180)
-                        .addComponent(jButton3)))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(34, 34, 34)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -186,29 +194,6 @@ public class mahasiswa extends javax.swing.JFrame {
         dua.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
-        Connection con;
-        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-        try{
-        con = con();
-        PreparedStatement pst = con.prepareStatement(String.format("SELECT * FROM tbl_siswa"));
-        ResultSet rst = pst.executeQuery();
-        while(rst.next()){
-            model.addRow(new Object[]{
-            rst.getString("Nama"),
-                rst.getString("Jurusan"),
-                rst.getString("Email"),
-                rst.getString("password"),
-                rst.getString("Jeniskelamin"),
-                rst.getString("Tanggallahir"),
-                rst.getString("alamat")              
-        });
-        }
-        
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,7 +233,6 @@ public class mahasiswa extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

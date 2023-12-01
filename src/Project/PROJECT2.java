@@ -263,7 +263,7 @@ public static Connection con() throws SQLException, ClassNotFoundException{
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Connection con;
-        String data1 = jTextField1.getText();
+        String Nama = jTextField1.getText();
         String data2 = jTextField2.getText();
         String data3 = jTextField3.getText();        
         
